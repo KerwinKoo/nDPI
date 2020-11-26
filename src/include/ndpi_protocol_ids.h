@@ -82,14 +82,14 @@ typedef enum {
   NDPI_PROTOCOL_RTSP                  = 50,
   NDPI_PROTOCOL_MAIL_IMAPS            = 51,
   NDPI_PROTOCOL_ICECAST               = 52,
-  NDPI_PROTOCOL_PPLIVE                = 53, /* Tomasz Bujlow <tomasz@skatnet.dk> */
+  NDPI_PROTOCOL_CPHA                  = 53,
   NDPI_PROTOCOL_PPSTREAM              = 54,
   NDPI_PROTOCOL_ZATTOO                = 55,
   NDPI_PROTOCOL_SHOUTCAST             = 56,
   NDPI_PROTOCOL_SOPCAST               = 57,
-  NDPI_PROTOCOL_TVANTS                = 58,
+  NDPI_PROTOCOL_DISCORD               = 58,
   NDPI_PROTOCOL_TVUPLAYER             = 59,
-  NDPI_PROTOCOL_HTTP_DOWNLOAD         = 60,
+  NDPI_PROTOCOL_MONGODB               = 60, /* Leonn Paiva <leonn.paiva@gmail.com> */
   NDPI_PROTOCOL_QQLIVE                = 61,
   NDPI_PROTOCOL_THUNDER               = 62,
   NDPI_PROTOCOL_SOULSEEK              = 63,
@@ -97,10 +97,10 @@ typedef enum {
   NDPI_PROTOCOL_IRC                   = 65,
   NDPI_PROTOCOL_AYIYA                 = 66,
   NDPI_PROTOCOL_UNENCRYPTED_JABBER    = 67,
-  NDPI_PROTOCOL_MSN                   = 68,
-  NDPI_PROTOCOL_OSCAR                 = 69,
+  NDPI_PROTOCOL_NATS                  = 68,
+  NDPI_PROTOCOL_AMONG_US              = 69, /* Toni Uhlig <matzeton@googlemail.com> */
   NDPI_PROTOCOL_YAHOO                 = 70,
-  NDPI_PROTOCOL_BATTLEFIELD           = 71,
+  NDPI_PROTOCOL_DISNEYPLUS            = 71, /* Zied Aouini <aouinizied@gmail.com> */
   NDPI_PROTOCOL_GOOGLE_PLUS           = 72,
   NDPI_PROTOCOL_IP_VRRP               = 73,
   NDPI_PROTOCOL_STEAM                 = 74, /* Tomasz Bujlow <tomasz@skatnet.dk> */
@@ -119,7 +119,7 @@ typedef enum {
   NDPI_PROTOCOL_RTP                   = 87,
   NDPI_PROTOCOL_RDP                   = 88,
   NDPI_PROTOCOL_VNC                   = 89,
-  NDPI_PROTOCOL_PCANYWHERE            = 90,
+  NDPI_PROTOCOL_TUMBLR                = 90, /* Zied Aouini <aouinizied@gmail.com> */
   NDPI_PROTOCOL_TLS                   = 91,
   NDPI_PROTOCOL_SSH                   = 92,
   NDPI_PROTOCOL_USENET                = 93,
@@ -139,7 +139,7 @@ typedef enum {
   NDPI_PROTOCOL_FIESTA                = 107,
   NDPI_PROTOCOL_FLORENSIA             = 108,
   NDPI_PROTOCOL_GUILDWARS             = 109,
-  NDPI_PROTOCOL_HTTP_ACTIVESYNC       = 110,
+  NDPI_PROTOCOL_AMAZON_ALEXA          = 110, /* Zied Aouini <aouinizied@gmail.com> */
   NDPI_PROTOCOL_KERBEROS              = 111,
   NDPI_PROTOCOL_LDAP                  = 112,
   NDPI_PROTOCOL_MAPLESTORY            = 113,
@@ -212,7 +212,7 @@ typedef enum {
   NDPI_PROTOCOL_CNN                   = 180, /* Tomasz Bujlow <tomasz@skatnet.dk> */
   NDPI_PROTOCOL_MEGACO                = 181, /* Gianluca Costa <g.costa@xplico.org> */
   NDPI_PROTOCOL_REDIS                 = 182,
-  NDPI_PROTOCOL_PANDO                 = 183, /* Tomasz Bujlow <tomasz@skatnet.dk> */
+  NDPI_PROTOCOL_PINTEREST             = 183, /* Zied Aouini <aouinizied@gmail.com> */
   NDPI_PROTOCOL_VHUA                  = 184,
   NDPI_PROTOCOL_TELEGRAM              = 185, /* Gianluca Costa <g.costa@xplico.org> */
   NDPI_PROTOCOL_VEVO                  = 186,
@@ -234,10 +234,10 @@ typedef enum {
   NDPI_PROTOCOL_IFLIX                 = 202, /* www.vizuamatix.com R&D team & M.Mallawaarachchie <manoj_ws@yahoo.com> */
   NDPI_PROTOCOL_GITHUB                = 203,
   NDPI_PROTOCOL_BJNP                  = 204,
-  NDPI_PROTOCOL_FREE_205              = 205,
+  NDPI_PROTOCOL_REDDIT                = 205, /* Zied Aouini <aouinizied@gmail.com> */
   NDPI_PROTOCOL_WIREGUARD             = 206,
   NDPI_PROTOCOL_SMPP                  = 207, /* Damir Franusic <df@release14.org> */
-  NDPI_PROTOCOL_DNSCRYPT              = 208,
+  NDPI_PROTOCOL_DNSCRYPT              = 208, /* Toni Uhlig <matzeton@googlemail.com> */
   NDPI_PROTOCOL_TINC                  = 209, /* William Guglielmo <william@deselmo.com> */
   NDPI_PROTOCOL_DEEZER                = 210,
   NDPI_PROTOCOL_INSTAGRAM             = 211, /* Andrea Buscarinu <andrea.buscarinu@gmail.com> */
@@ -265,8 +265,8 @@ typedef enum {
   NDPI_PROTOCOL_LINKEDIN              = 233, /* Paulo Angelo <pa@pauloangelo.com> */
   NDPI_PROTOCOL_SOUNDCLOUD            = 234,
   NDPI_PROTOCOL_CSGO                  = 235, /* Counter-Strike Global Offensive, Dota = 2 */
-  NDPI_PROTOCOL_LISP	              = 236,
-  NDPI_PROTOCOL_DIAMETER	      = 237,
+  NDPI_PROTOCOL_LISP	                = 236,
+  NDPI_PROTOCOL_DIAMETER	            = 237,
   NDPI_PROTOCOL_APPLE_PUSH            = 238,
   NDPI_PROTOCOL_GOOGLE_SERVICES       = 239,
   NDPI_PROTOCOL_AMAZON_VIDEO          = 240,
@@ -280,10 +280,15 @@ typedef enum {
   NDPI_PROTOCOL_ZABBIX                = 248,
   NDPI_PROTOCOL_S7COMM                = 249,
   NDPI_PROTOCOL_MSTEAMS               = 250,
+  NDPI_PROTOCOL_WEBSOCKET             = 251, /* Leonn Paiva <leonn.paiva@gmail.com> */
+  NDPI_PROTOCOL_ANYDESK               = 252, /* Toni Uhlig <matzeton@googlemail.com> */
+  NDPI_PROTOCOL_SOAP                  = 253, /* Toni Uhlig <matzeton@googlemail.com> */
+  NDPI_PROTOCOL_APPLE_SIRI            = 254, /* Zied Aouini <aouinizied@gmail.com> */
+
 
 #ifdef CUSTOM_NDPI_PROTOCOLS
 #include "../../../nDPI-custom/custom_ndpi_protocol_ids.h"
-#endif  
+#endif
 
   /*
     IMPORTANT
