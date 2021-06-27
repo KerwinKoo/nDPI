@@ -66,6 +66,14 @@ int LLVMFuzzerTestOneInput(const uint8_t *Data, size_t Size) {
     free(pcap_path);
     return 0;
   }
+  if (ndpi_is_datalink_supported(pcap_datalink(pkts)) == 0)
+  {
+    /* Do not fail if the datalink type is not supported (may happen often during fuzzing). */
+    pcap_close(pkts);
+    remove(pcap_path);
+    free(pcap_path);
+    return 0;
+  }
   struct ndpi_workflow * workflow = ndpi_workflow_init(prefs, pkts);
   // enable all protocols
   NDPI_BITMASK_SET_ALL(all);
@@ -76,8 +84,9 @@ int LLVMFuzzerTestOneInput(const uint8_t *Data, size_t Size) {
 	 sizeof(workflow->stats.protocol_counter_bytes));
   memset(workflow->stats.protocol_flows, 0,
 	 sizeof(workflow->stats.protocol_flows));
-  ndpi_finalize_initalization(workflow->ndpi_struct);
+  ndpi_finalize_initialization(workflow->ndpi_struct);
 
+  header = NULL;
   r = pcap_next_ex(pkts, &header, &pkt);
   while (r > 0) {
     if(header->caplen >= 42 /* ARP+ size */) {
@@ -85,8 +94,10 @@ int LLVMFuzzerTestOneInput(const uint8_t *Data, size_t Size) {
       uint8_t *packet_checked = malloc(header->caplen);
 
       if(packet_checked) {
+	ndpi_risk flow_risk;
+	
 	memcpy(packet_checked, pkt, header->caplen);
-	ndpi_workflow_process_packet(workflow, header, packet_checked, NULL);
+	ndpi_workflow_process_packet(workflow, header, packet_checked, &flow_risk, NULL);
 	free(packet_checked);
       }
     }

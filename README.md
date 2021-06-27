@@ -29,6 +29,10 @@ Please note that the pre-requisites for compilation include:
 On Debian/Ubuntu systems do:
 - sudo apt-get install build-essential git bison flex libpcap-dev libtool libtool-bin autoconf pkg-config automake autogen libjson-c-dev libnuma-dev libgcrypt20-dev libpcre2-dev
 
+FreeBSD
+- sudo pkg install gcc git autoconf automake libtool devel/pkgconf json-c gmake
+
+Remember to use gmake and not make on FreeBSD
 
 ### How To Add A New Protocol Dissector
 
@@ -47,6 +51,10 @@ The entire procedure of adding new protocols in detail:
 
 ### How to use nDPI to Block Selected Traffic
 You can use nDPI to selectively block selected Internet traffic by embedding it onto an application (remember that nDPI is just a library). Both [ntopng](https://github.com/ntop/ntopng) and [nProbe cento](http://www.ntop.org/products/netflow/nprobe-cento/) can do this.
+
+### nDPI Paper Citation
+
+- Deri, Luca, et al. [nDPI: Open-source high-speed deep packet inspection](http://luca.ntop.org/nDPI.pdf) 2014 International Wireless Communications and Mobile Computing Conference (IWCMC). IEEE, 2014.
 
 ### nDPI-Related Projects
 - [nfstream](https://github.com/aouinizied/nfstream)

@@ -1,8 +1,8 @@
 /*
  * netbios.c
  *
- * Copyright (C) 2011-20 - ntop.org
- * Copyright (C) 2009-2011 by ipoque GmbH
+ * Copyright (C) 2011-21 - ntop.org
+ * Copyright (C) 2009-11 - ipoque GmbH
  *
  * This file is part of nDPI, an open source deep packet inspection
  * library based on the OpenDPI and PACE technology by ipoque GmbH
@@ -37,37 +37,48 @@ struct netbios_header {
 
 /* ****************************************************************** */
 
+static int is_printable_char(unsigned char c) {
+  return(((c >= 0x20) && (c <= 0x7e)) ? 1 : 0);
+}
+
+/* ****************************************************************** */
+
 /* The function below has been inherited by tcpdump */
-int ndpi_netbios_name_interpret(char *in, size_t inlen, char *out, u_int out_len) {
-  int ret = 0, len, idx = inlen;
-  char *b;
+int ndpi_netbios_name_interpret(u_char *in, size_t in_len, u_char *out, u_int out_len) {
+  u_int ret = 0, len, idx = in_len, out_idx = 0;
 
-  len = (*in++)/2;
-  b  = out;
-  *out = 0;
+  len = in[0] / 2;
+  in++, in_len--;
+  
+  out_len--;
+  out[out_idx] = 0;
 
-  if((len > (out_len-1)) || (len < 1) || ((2*len) > inlen))
+  if((len > out_len) || (len < 1) || ((2*len) > in_len))
     return(-1);
 
-  while(len--) {
+  while((len--) && (out_idx < out_len)) {
     if((idx < 2) || (in[0] < 'A') || (in[0] > 'P') || (in[1] < 'A') || (in[1] > 'P')) {
-      *out = 0;
+      out[out_idx] = 0;
       break;
     }
 
-    *out = ((in[0] - 'A') << 4) + (in[1] - 'A');
-
+    out[out_idx] = ((in[0] - 'A') << 4) + (in[1] - 'A');
     in += 2, idx -= 2;
 
-    if(isprint(*out))
-      out++, ret++;
+    if(is_printable_char(out[out_idx]))
+      out_idx++, ret++;
   }
 
-  *out = 0;
-
-  /* Courtesy of Roberto F. De Luca <deluca@tandar.cnea.gov.ar> */
   /* Trim trailing whitespace from the returned string */
-  for(out--; out>=b && *out==' '; out--) *out = '\0';
+  if(out_idx > 0) {
+    out[out_idx] = 0;
+    out_idx--;
+
+    while((out_idx > 0) && (out[out_idx] == ' ')) {
+      out[out_idx] = 0;
+      out_idx--;
+    }
+  }
 
   return(ret);
 }
@@ -77,11 +88,11 @@ int ndpi_netbios_name_interpret(char *in, size_t inlen, char *out, u_int out_len
 static void ndpi_int_netbios_add_connection(struct ndpi_detection_module_struct *ndpi_struct,
 					    struct ndpi_flow_struct *flow,
 					    u_int16_t sub_protocol) {
-  char name[64];
+  unsigned char name[64];
   u_int off = flow->packet.payload[12] == 0x20 ? 12 : 14;
 
   if((off < flow->packet.payload_packet_len)
-     && ndpi_netbios_name_interpret((char*)&flow->packet.payload[off],
+     && ndpi_netbios_name_interpret((unsigned char*)&flow->packet.payload[off],
 				 flow->packet.payload_packet_len - off, name, sizeof(name)) > 0) {
       snprintf((char*)flow->host_server_name, sizeof(flow->host_server_name)-1, "%s", name);
 

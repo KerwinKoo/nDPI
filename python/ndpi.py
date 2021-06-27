@@ -316,6 +316,13 @@ typedef enum {
   NDPI_UNSAFE_PROTOCOL,
   NDPI_DNS_SUSPICIOUS_TRAFFIC,
   NDPI_TLS_MISSING_SNI,
+  NDPI_HTTP_SUSPICIOUS_CONTENT,
+  NDPI_RISKY_ASN,
+  NDPI_RISKY_DOMAIN,
+  NDPI_MALICIOUS_JA3,
+  NDPI_MALICIOUS_SHA1_CERTIFICATE,
+  NDPI_DESKTOP_OR_FILE_SHARING_SESSION,
+
   /* Leave this as last member */
   NDPI_MAX_RISK
 } ndpi_risk_enum;
@@ -715,7 +722,6 @@ struct ndpi_packet_struct {
   uint64_t current_time_ms;
 
   uint16_t detected_protocol_stack[2];
-  uint8_t detected_subprotocol_stack[2];
   uint16_t protocol_stack_info;
 
   struct ndpi_int_one_line_struct line[64];
@@ -869,9 +875,9 @@ typedef enum {
 typedef struct ndpi_proto_defaults {
   char *protoName;
   ndpi_protocol_category_t protoCategory;
-  uint8_t can_have_a_subprotocol;
+  u_int16_t * subprotocols;
+  size_t subprotocol_count;
   uint16_t protoId, protoIdx;
-  uint16_t master_tcp_protoId[2], master_udp_protoId[2]; /* The main protocols on which this sub-protocol sits on */
   uint16_t tcp_default_ports[5], udp_default_ports[5];
   ndpi_protocol_breed_t protoBreed;
   void (*func) (struct ndpi_detection_module_struct *, struct ndpi_flow_struct *flow);
@@ -1067,6 +1073,8 @@ struct ndpi_flow_struct {
     uint8_t num_request_headers, num_response_headers;
     uint8_t request_version; /* 0=1.0 and 1=1.1. Create an enum for this? */
     uint16_t response_status_code; /* 200, 404, etc. */
+    uint8_t detected_os[32]; /* Via HTTP/QUIC User-Agent */
+
   } http;
 
   /* 
@@ -1144,8 +1152,6 @@ struct ndpi_flow_struct {
     } ubntac2;
 
     struct {
-      /* Via HTTP User-Agent */
-      uint8_t detected_os[32];
       /* Via HTTP X-Forwarded-For */
       uint8_t nat_ip[24];
     } http;

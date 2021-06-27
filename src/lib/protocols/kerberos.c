@@ -1,8 +1,8 @@
 /*
  * kerberos.c
  *
- * Copyright (C) 2011-20 - ntop.org
- * Copyright (C) 2009-2011 by ipoque GmbH
+ * Copyright (C) 2011-21 - ntop.org
+ * Copyright (C) 2009-11 - ipoque GmbH
  *
  * This file is part of nDPI, an open source deep packet inspection
  * library based on the OpenDPI and PACE technology by ipoque GmbH
@@ -214,7 +214,7 @@ void ndpi_search_kerberos(struct ndpi_detection_module_struct *ndpi_struct,
 #endif
 
 		if(name_offset < packet->payload_packet_len) {
-		  u_int cname_len;
+		  u_int cname_len = 0;
 
 		  name_offset += 1;
 		  if(packet->payload[name_offset+1] < ' ') /* Isn't printable ? */

@@ -1,7 +1,7 @@
 /*
  * ndpi_protocol_ids.h
  *
- * Copyright (C) 2011-20 - ntop.org
+ * Copyright (C) 2011-21 - ntop.org
  *
  * This file is part of nDPI, an open source deep packet inspection
  * library based on the OpenDPI and PACE technology by ipoque GmbH
@@ -25,7 +25,6 @@
 #ifndef __NDPI_PROTOCOLS_IDS_H__
 #define __NDPI_PROTOCOLS_IDS_H__
 
-#define NDPI_DETECTION_SUPPORT_IPV6
 #define NDPI_PROTOCOL_SIZE                  2
 
 typedef enum {
@@ -59,7 +58,7 @@ typedef enum {
   NDPI_PROTOCOL_COAP                  = 27,
   NDPI_PROTOCOL_VMWARE                = 28,
   NDPI_PROTOCOL_MAIL_SMTPS            = 29,
-  NDPI_PROTOCOL_FBZERO                = 30,
+  NDPI_PROTOCOL_DTLS                  = 30,
   NDPI_PROTOCOL_UBNTAC2               = 31, /* Ubiquity UBNT AirControl = 2 - Thomas Fjellstrom <thomas+ndpi@fjellstrom.ca> */
   NDPI_PROTOCOL_KONTIKI               = 32,
   NDPI_PROTOCOL_OPENFT                = 33,
@@ -96,7 +95,7 @@ typedef enum {
   NDPI_PROTOCOL_PS_VUE                = 64,
   NDPI_PROTOCOL_IRC                   = 65,
   NDPI_PROTOCOL_AYIYA                 = 66,
-  NDPI_PROTOCOL_UNENCRYPTED_JABBER    = 67,
+  NDPI_PROTOCOL_JABBER                = 67,
   NDPI_PROTOCOL_NATS                  = 68,
   NDPI_PROTOCOL_AMONG_US              = 69, /* Toni Uhlig <matzeton@googlemail.com> */
   NDPI_PROTOCOL_YAHOO                 = 70,
@@ -154,7 +153,7 @@ typedef enum {
   NDPI_PROTOCOL_GMAIL                 = 122,
   NDPI_PROTOCOL_GOOGLE_MAPS           = 123,
   NDPI_PROTOCOL_YOUTUBE               = 124,
-  NDPI_PROTOCOL_SKYPE                 = 125,
+  NDPI_PROTOCOL_SKYPE_TEAMS           = 125,
   NDPI_PROTOCOL_GOOGLE                = 126,
   NDPI_PROTOCOL_DCERPC                = 127,
   NDPI_PROTOCOL_NETFLOW               = 128,
@@ -182,7 +181,7 @@ typedef enum {
   NDPI_PROTOCOL_LOTUS_NOTES           = 150,
   NDPI_PROTOCOL_SAP                   = 151,
   NDPI_PROTOCOL_GTP                   = 152,
-  NDPI_PROTOCOL_UPNP                  = 153,
+  NDPI_PROTOCOL_WSD                   = 153,
   NDPI_PROTOCOL_LLMNR                 = 154,
   NDPI_PROTOCOL_REMOTE_SCAN           = 155,
   NDPI_PROTOCOL_SPOTIFY               = 156,
@@ -225,7 +224,7 @@ typedef enum {
   NDPI_PROTOCOL_KAKAOTALK             = 193, /* KakaoTalk Chat (no voice call) */
   NDPI_PROTOCOL_KAKAOTALK_VOICE       = 194, /* KakaoTalk Voice */
   NDPI_PROTOCOL_TWITCH                = 195, /* Edoardo Dominici <edoaramis@gmail.com> */
-  NDPI_PROTOCOL_DOH_DOT               = 196, /* DoH (DNS over HTTPS), DoT (DNS over TLS) */
+  NDPI_PROTOCOL_DOH_DOT               = 196, /* DoH (DNS over HTTPS), DoT (DNS over TLS), DoQ (DNS over QUIC). TODO: rename in NDPI_PROTOCOL_DOH_DOT_DOQ? */
   NDPI_PROTOCOL_WECHAT                = 197,
   NDPI_PROTOCOL_MPEGTS                = 198,
   NDPI_PROTOCOL_SNAPCHAT              = 199,
@@ -265,8 +264,8 @@ typedef enum {
   NDPI_PROTOCOL_LINKEDIN              = 233, /* Paulo Angelo <pa@pauloangelo.com> */
   NDPI_PROTOCOL_SOUNDCLOUD            = 234,
   NDPI_PROTOCOL_CSGO                  = 235, /* Counter-Strike Global Offensive, Dota = 2 */
-  NDPI_PROTOCOL_LISP	                = 236,
-  NDPI_PROTOCOL_DIAMETER	            = 237,
+  NDPI_PROTOCOL_LISP                  = 236,
+  NDPI_PROTOCOL_DIAMETER              = 237,
   NDPI_PROTOCOL_APPLE_PUSH            = 238,
   NDPI_PROTOCOL_GOOGLE_SERVICES       = 239,
   NDPI_PROTOCOL_AMAZON_VIDEO          = 240,
@@ -284,7 +283,11 @@ typedef enum {
   NDPI_PROTOCOL_ANYDESK               = 252, /* Toni Uhlig <matzeton@googlemail.com> */
   NDPI_PROTOCOL_SOAP                  = 253, /* Toni Uhlig <matzeton@googlemail.com> */
   NDPI_PROTOCOL_APPLE_SIRI            = 254, /* Zied Aouini <aouinizied@gmail.com> */
-
+  NDPI_PROTOCOL_SNAPCHAT_CALL         = 255,
+  NDPI_PROTOCOL_HPVIRTGRP             = 256, /* Toni Uhlig <matzeton@googlemail.com> */
+  NDPI_PROTOCOL_GENSHIN_IMPACT        = 257, /* Toni Uhlig <matzeton@googlemail.com> */
+  NDPI_PROTOCOL_ACTIVISION            = 258,
+  NDPI_PROTOCOL_FORTICLIENT           = 259,
 
 #ifdef CUSTOM_NDPI_PROTOCOLS
 #include "../../../nDPI-custom/custom_ndpi_protocol_ids.h"

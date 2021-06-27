@@ -1,8 +1,8 @@
 /*
  * mail_smtp.c
  *
- * Copyright (C) 2011-20 - ntop.org
- * Copyright (C) 2009-2011 by ipoque GmbH
+ * Copyright (C) 2011-21 - ntop.org
+ * Copyright (C) 2009-11 - ipoque GmbH
  *
  * This file is part of nDPI, an open source deep packet inspection
  * library based on the OpenDPI and PACE technology by ipoque GmbH
@@ -261,7 +261,7 @@ void ndpi_search_mail_smtp_tcp(struct ndpi_detection_module_struct *ndpi_struct,
     return;
   }
 
-  if(!flow->check_extra_packets)
+  if((!flow->check_extra_packets) || (flow->packet_counter > 12))
     NDPI_EXCLUDE_PROTO(ndpi_struct, flow);
 }
 
